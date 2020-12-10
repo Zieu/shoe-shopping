@@ -1,0 +1,38 @@
+.hero {
+  height: calc(100vh - 62px);
+  min-height: 500px;
+  background: #f6f6f6;
+  position: relative;
+  z-index: 1;
+  &-wrapper {
+    width: 500px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  &-title {
+    font-weight: 700;
+    font-size: 40px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  &-par {
+    font-size: 24px;
+    text-align: center;
+  }
+  &-bg {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80vw;
+    height: 85vh;
+    background-image: url(../imgs/hero-bg.png);
+    background-repeat: no-repeat;
+    background-size: 800px;
+    background-position: center;
+    z-index: -1;
+  }
+}

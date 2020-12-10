@@ -1,0 +1,32 @@
+.card {
+  &s {
+    margin-bottom: 30px;
+    &-title {
+      font-size: 30px;
+    }
+  }
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid #f6f6f6;
+  &-img {
+    width: 280px;
+    &-container {
+      background: #f6f6f6;
+      height: 420px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      object-fit: cover;
+    }
+  }
+  &-model {
+    font-size: 18px;
+  }
+  &-gender {
+    font-size: 16px;
+    color: #898989;
+  }
+  &-price {
+    font-size: 22px;
+  }
+}

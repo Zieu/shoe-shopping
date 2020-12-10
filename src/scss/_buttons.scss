@@ -1,0 +1,13 @@
+.button {
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  &--black {
+    background: #222222;
+    color: #fff;
+  }
+  &--white {
+    border: 1px solid #222222;
+    color: #222;
+  }
+}
