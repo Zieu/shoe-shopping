@@ -13,7 +13,7 @@ const Navbar = () => {
       <Link to="/">
         <div className="nav-logo d-flex">
           <img src={logo} alt="logo" className="nav-logo-img mr-2" />
-          <span className="nav-logo-text">Shoe Shop</span>
+          <span classname="nav-logo-text">Shoe Shop</span>
         </div>
       </Link>
       <nav className="nav">

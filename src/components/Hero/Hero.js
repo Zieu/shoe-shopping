@@ -18,11 +18,11 @@ const Hero = () => {
               consecetur amet lorem isum.
             </p>
             <div className="hero-buttons m-4">
-              <Link className="nav-link" to="/sign-up">
-                <button className="button button--black">Sign up</button>
+              <Link className="nav-link button button--black" to="/sign-up">
+                Sign up
               </Link>
-              <Link className="nav-link" to="/sign-in">
-                <button className="button button--white">Sign in</button>
+              <Link className="nav-link button button--white" to="/sign-in">
+                Sign in
               </Link>
             </div>
           </div>
