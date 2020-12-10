@@ -1,5 +1,7 @@
 import React from "react";
 import Card from "./Card";
+import { Link } from "react-router-dom";
+
 const CardContainer = ({ title, data }) => {
   return (
     <div className="col-12">
@@ -10,14 +12,15 @@ const CardContainer = ({ title, data }) => {
         </div>
         <div className="card-container row">
           {data.map((product, index) => (
-            <Card
-              model={product.model}
-              price={product.price}
-              gender={product.gender}
-              isFav={product.isFav}
-              photo={product.photo}
-              key={index}
-            />
+            <Link to={`:${product.model}`} className="col-4" key={index}>
+              <Card
+                model={product.model}
+                price={product.price}
+                gender={product.gender}
+                isFav={product.isFav}
+                photo={product.photo}
+              />
+            </Link>
           ))}
         </div>
       </div>
