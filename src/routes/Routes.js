@@ -1,8 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import Home from "routes/Home";
 import Navbar from "components/Navbar/Navbar";
+import Home from "routes/Home";
+import SignIn from "routes/SignIn";
+import SignUp from "routes/SignUp";
 
 const Routes = () => {
   return (
@@ -26,13 +28,13 @@ const Routes = () => {
         </Route>
         <Route exact path="/cart">
           <Cart />
-        </Route>
-        <Route exact path="/signup">
-          <SignUn />
-        </Route>
-        <Route exact path="/signin">
-          <SignIn />
         </Route> */}
+        <Route exact path="/sign-up">
+          <SignUp />
+        </Route>
+        <Route exact path="/sign-in">
+          <SignIn />
+        </Route>
         <Route exact path="/">
           <Home />
         </Route>

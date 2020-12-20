@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "./Card";
 import { Link } from "react-router-dom";
+import { Button } from "@chakra-ui/react";
 
 const CardContainer = ({ title, data }) => {
   return (
@@ -8,7 +9,16 @@ const CardContainer = ({ title, data }) => {
       <div className="cards">
         <div className="d-flex justify-content-between align-items-end mb-3">
           <h2 className="cards-title">{title}</h2>
-          <button className="button button--white nav-link">See all</button>
+          <Button
+            bg="white"
+            _hover={{ color: "black", bg: "gray.100" }}
+            color="black"
+            variant="outline"
+            fontWeight="500"
+            borderColor="black"
+          >
+            See all
+          </Button>
         </div>
         <div className="card-container row">
           {data.map((product, index) => (
