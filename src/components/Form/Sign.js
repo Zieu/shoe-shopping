@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { auth } from "redux/auth/authActions";
 import {
   FormControl,
   FormLabel,
-  FormHelperText,
   Input,
   Heading,
   InputRightElement,
@@ -19,11 +20,20 @@ const Sign = ({ signType }) => {
   const [password, setPassword] = useState("");
   const handleClick = () => setShow(!show);
 
+  const authState = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const usernameHandler = (e) => setUsername(e.target.value);
   const passwordHandler = (e) => setPassword(e.target.value);
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(auth(username, password));
+  };
+  console.log(authState.authStarted);
+
   return (
-    <div
+    <form
+      onSubmit={submitHandler}
       className="d-flex justify-content-center align-items-center pb-5"
       style={{
         height: "calc(100vh - 70px)",
@@ -67,11 +77,12 @@ const Sign = ({ signType }) => {
           variant="solid"
           size="lg"
           mt="1.5rem"
+          type="submit"
         >
           Submit
         </Button>
       </FormControl>
-    </div>
+    </form>
   );
 };
 
