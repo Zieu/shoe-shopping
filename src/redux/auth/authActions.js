@@ -43,10 +43,7 @@ export const auth = (username, password) => async (dispatch) => {
       body: password,
       userId: 1,
     };
-    const response = await axios.post(
-      "https://jsonplaceholder.typicode.com/posts",
-      data
-    );
+    const response = await axios.get("localhost:5000/users", data);
     console.log(response);
 
     dispatch({

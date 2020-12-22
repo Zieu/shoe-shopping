@@ -18,16 +18,18 @@ const Sign = ({ signType }) => {
   const [show, setShow] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const handleClick = () => setShow(!show);
 
   const authState = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const usernameHandler = (e) => setUsername(e.target.value);
   const passwordHandler = (e) => setPassword(e.target.value);
+  const passwordConfirmHandler = (e) => setPasswordConfirm(e.target.value);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(auth(username, password));
+    if (password === passwordConfirm) dispatch(auth(username, password));
   };
   console.log(authState.authStarted);
 
@@ -58,6 +60,7 @@ const Sign = ({ signType }) => {
             placeholder="Enter password"
             value={password}
             onChange={passwordHandler}
+            id="pass"
           />
           <InputRightElement>
             <Button className="p-2" size="sm" onClick={handleClick}>
@@ -69,6 +72,32 @@ const Sign = ({ signType }) => {
             </Button>
           </InputRightElement>
         </InputGroup>
+        {signType === "Sign up" && (
+          <>
+            <FormLabel mt="1rem" htmlFor="pass2">
+              Password
+            </FormLabel>
+            <InputGroup>
+              <Input
+                pr="4rem"
+                type={show ? "text" : "password"}
+                placeholder="Confirm password"
+                value={passwordConfirm}
+                onChange={passwordConfirmHandler}
+                id="pass2"
+              />
+              <InputRightElement>
+                <Button className="p-2" size="sm" onClick={handleClick}>
+                  {show ? (
+                    <img src={eye} alt="hide" />
+                  ) : (
+                    <img src={eyeOff} alt="show" />
+                  )}
+                </Button>
+              </InputRightElement>
+            </InputGroup>
+          </>
+        )}
         <Button
           bg="black"
           _hover={{ color: "white", bg: "gray.700" }}
