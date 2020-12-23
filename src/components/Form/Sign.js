@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { auth } from "redux/auth/authActions";
+// import { useDispatch, useSelector } from "react-redux";
+// import { auth } from "redux/auth/authActions";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
 import {
   FormControl,
   FormLabel,
@@ -14,28 +18,42 @@ import {
 import eye from "imgs/eye.svg";
 import eyeOff from "imgs/eye-off.svg";
 
+const schema = yup.object({
+  username: yup
+    .string()
+    .required("Username is required")
+    .min(2, "Username must be at least 2 characters")
+    .matches(/^[A-Za-z]+$/i, "Only English letters are allowed"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(4, "Password must be at least 4 characters"),
+  passwordConfirm: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match"),
+});
+
 const Sign = ({ signType }) => {
   const [show, setShow] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(schema),
+  });
   const handleClick = () => setShow(!show);
 
-  const authState = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-  const usernameHandler = (e) => setUsername(e.target.value);
-  const passwordHandler = (e) => setPassword(e.target.value);
-  const passwordConfirmHandler = (e) => setPasswordConfirm(e.target.value);
+  // const authState = useSelector((state) => state.auth);
+  // const dispatch = useDispatch();
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    if (password === passwordConfirm) dispatch(auth(username, password));
+  const submitHandler = (data) => {
+    // dispatch(auth(data));
+    console.log(data);
   };
-  console.log(authState.authStarted);
 
+  const RequiredError = ({ err }) => (
+    <span style={{ fontSize: 12, color: "red" }}>{err}</span>
+  );
   return (
     <form
-      onSubmit={submitHandler}
+      onSubmit={handleSubmit(submitHandler)}
       className="d-flex justify-content-center align-items-center pb-5"
       style={{
         height: "calc(100vh - 70px)",
@@ -44,22 +62,24 @@ const Sign = ({ signType }) => {
     >
       <FormControl className="col-4">
         <Heading className="mb-4">{signType}</Heading>
-        <FormLabel htmlFor="name">Username</FormLabel>
+        <FormLabel htmlFor="username">Username</FormLabel>
         <Input
-          mb="1rem"
+          name="username"
           placeholder="Enter username"
-          id="name"
-          value={username}
-          onChange={usernameHandler}
+          id="username"
+          ref={register}
         />
-        <FormLabel htmlFor="pass">Password</FormLabel>
+        <RequiredError err={errors.username?.message} />
+        <FormLabel mt="1rem" htmlFor="pass">
+          Password
+        </FormLabel>
         <InputGroup>
           <Input
+            name="password"
             pr="4rem"
             type={show ? "text" : "password"}
             placeholder="Enter password"
-            value={password}
-            onChange={passwordHandler}
+            ref={register}
             id="pass"
           />
           <InputRightElement>
@@ -72,6 +92,7 @@ const Sign = ({ signType }) => {
             </Button>
           </InputRightElement>
         </InputGroup>
+        <RequiredError err={errors.password?.message} />
         {signType === "Sign up" && (
           <>
             <FormLabel mt="1rem" htmlFor="pass2">
@@ -79,11 +100,11 @@ const Sign = ({ signType }) => {
             </FormLabel>
             <InputGroup>
               <Input
+                name="passwordConfirm"
                 pr="4rem"
                 type={show ? "text" : "password"}
                 placeholder="Confirm password"
-                value={passwordConfirm}
-                onChange={passwordConfirmHandler}
+                ref={register}
                 id="pass2"
               />
               <InputRightElement>
@@ -96,6 +117,7 @@ const Sign = ({ signType }) => {
                 </Button>
               </InputRightElement>
             </InputGroup>
+            <RequiredError err={errors.passwordConfirm?.message} />
           </>
         )}
         <Button
