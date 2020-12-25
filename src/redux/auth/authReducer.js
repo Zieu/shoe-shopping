@@ -26,20 +26,32 @@
 //   }
 // };
 
-import { AUTH_START, AUTH_SUCCESS, AUTH_FAIL } from "./authActions";
+import {
+  SIGNUP_START,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAIL,
+  SIGNIN_START,
+  SIGNIN_SUCCESS,
+  SIGNIN_FAIL,
+} from "./authActions";
 
 const initialState = {
-  authStarted: false,
+  signupStarted: false,
+  signinStarted: false,
 };
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case AUTH_START:
+    case SIGNUP_START:
       return {
         ...state,
-        authStarted: true,
+        signupStarted: true,
       };
-
+    case SIGNIN_START:
+      return {
+        ...state,
+        signinStarted: true,
+      };
     default:
       return state;
   }

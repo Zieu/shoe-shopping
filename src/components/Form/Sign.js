@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { auth } from "redux/auth/authActions";
+import { useDispatch, useSelector } from "react-redux";
+import { signin, signup } from "redux/auth/authActions";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -40,11 +40,12 @@ const Sign = ({ signType }) => {
   });
   const handleClick = () => setShow(!show);
 
-  // const authState = useSelector((state) => state.auth);
-  // const dispatch = useDispatch();
+  const authState = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const submitHandler = (data) => {
-    // dispatch(auth(data));
+    if (signType === "Sign up") dispatch(signup(data));
+    if (signType === "Sign in") dispatch(signin(data));
     console.log(data);
   };
 

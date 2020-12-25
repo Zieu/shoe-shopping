@@ -1,7 +1,7 @@
 // export const //
 //   USER_LOADING = "USER_LOADING",
 //   USER_LOADED = "USER_LOADED",
-//   AUTH_ERROR = "AUTH_ERROR",
+//   SIGNUP_ERROR = "SIGNUP_ERROR",
 //   LOGIN_SUCCESS = "LOGIN_SUCCESS",
 //   LOGIN_FAIL = "LOGIN_FAIL",
 //   LOGOUT_SUCCESS = "LOGOUT_SUCCESS",
@@ -11,47 +11,89 @@
 import axios from "axios";
 
 export const //
-  AUTH_START = "AUTH_START",
-  AUTH_SUCCESS = "AUTH_SUCCESS",
-  AUTH_FAIL = "AUTH_FAIL";
+  SIGNUP_START = "SIGNUP_START",
+  SIGNUP_SUCCESS = "SIGNUP_SUCCESS",
+  SIGNUP_FAIL = "SIGNUP_FAIL",
+  SIGNIN_START = "SIGNIN_START",
+  SIGNIN_SUCCESS = "SIGNIN_SUCCESS",
+  SIGNIN_FAIL = "SIGNIN_FAIL";
 
-export const authStart = () => {
+export const signupStart = () => {
   return {
-    type: AUTH_START,
+    type: SIGNUP_START,
   };
 };
 
-export const authSuccess = (authData) => {
+export const signupSuccess = (signupData) => {
   return {
-    type: AUTH_SUCCESS,
-    authData: authData,
+    type: SIGNUP_SUCCESS,
+    SIGNUPData: signupData,
   };
 };
 
-export const authFail = (error) => {
+export const signupFail = (error) => {
   return {
-    type: AUTH_FAIL,
+    type: SIGNUP_FAIL,
     error: error,
   };
 };
 
-export const auth = (username, password) => async (dispatch) => {
-  dispatch(authStart());
+export const signup = (data) => async (dispatch) => {
+  dispatch(signupStart());
   try {
-    const data = {
-      title: username,
-      body: password,
-      userId: 1,
-    };
-    const response = await axios.get("localhost:5000/users", data);
+    const response = await axios.post(
+      "http://localhost:5000/users/signup",
+      data
+    );
     console.log(response);
 
     dispatch({
-      type: AUTH_SUCCESS,
+      type: SIGNUP_SUCCESS,
       payload: response.data,
       status: response.status,
     });
   } catch (error) {
-    dispatch(authFail(error));
+    dispatch(signupFail(error));
+  }
+};
+
+export const signinStart = () => {
+  return {
+    type: SIGNIN_START,
+  };
+};
+
+export const signinSuccess = (signinData) => {
+  return {
+    type: SIGNIN_SUCCESS,
+    SIGNUPData: signinData,
+  };
+};
+
+export const signinFail = (error) => {
+  return {
+    type: SIGNIN_FAIL,
+    error: error,
+  };
+};
+
+export const signin = (data) => async (dispatch) => {
+  dispatch(signinStart());
+  try {
+    const response = await axios.post(
+      "http://localhost:5000/users/login",
+      data
+    );
+    console.log(response.data);
+    const token = response.data.data.user.token;
+
+    localStorage.setItem("token", token);
+    dispatch({
+      type: SIGNIN_SUCCESS,
+      payload: response.data,
+      status: response.status,
+    });
+  } catch (error) {
+    dispatch(signinFail(error));
   }
 };
