@@ -38,6 +38,8 @@ import {
 const initialState = {
   signupStarted: false,
   signinStarted: false,
+  isAuthenticated: false,
+  signupError: false,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -46,6 +48,13 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         signupStarted: true,
+      };
+    case SIGNUP_SUCCESS:
+      return {
+        ...state,
+        signupStarted: true,
+        isAuthenticated: true,
+        signupError: false,
       };
     case SIGNIN_START:
       return {

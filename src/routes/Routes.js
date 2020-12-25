@@ -5,6 +5,7 @@ import Navbar from "components/Navbar/Navbar";
 import Home from "routes/Home";
 import SignIn from "routes/SignIn";
 import SignUp from "routes/SignUp";
+import Form from "routes/Form";
 
 const Routes = () => {
   return (
@@ -29,6 +30,9 @@ const Routes = () => {
         <Route exact path="/cart">
           <Cart />
         </Route> */}
+        <Route exact path="/add-product">
+          <Form />
+        </Route>
         <Route exact path="/sign-up">
           <SignUp />
         </Route>
